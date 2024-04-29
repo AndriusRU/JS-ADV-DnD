@@ -1,0 +1,10 @@
+.board{
+  min-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  justify-content: space-between;
+  border-radius: 5px;
+  background-color:  #323dda;
+  display: flex;
+}

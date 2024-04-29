@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #eaeae8;
+}
+
+h3, h4 {
+  margin: 0;
+  padding: 0;
+  color: black;
+}
+
+ul[class] {
+  padding: 0;
+}
+
+#trello {
+  padding-top: 50px;
+  font-family: 'Roboto', sans-serif;
+  color: #608ee9;
+}
