@@ -1,0 +1,78 @@
+.task {
+  list-style-type: none;
+  display: block;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #7beed5;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  word-wrap: anywhere;
+}
+
+.task-header h4 {
+  margin: 3px;
+}
+
+.hidden {
+  display: none;
+}
+
+
+.task-del {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+  
+.task-del span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  align-content: center;
+}
+/*
+.task-del span:before, .task-del span:after {
+  position: absolute;
+  left: 11px;
+  top: 2.5px;
+  content: ' ';
+  height: 19px;
+  width: 2px;
+  background-color: #0f2db3;
+
+}
+
+.task-del span:before {
+  transform: rotate(45deg);
+}
+
+.task-del span:after {
+  transform: rotate(-45deg);
+}
+  /*
+  .card.dragged {
+    cursor: grabbing;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 999;
+    pointer-events: none;
+    background: #fff;
+    font-family: 'Roboto', sans-serif;
+    color: #1d345e;
+    transform: rotateZ(2deg);
+  }
+
+
+*/

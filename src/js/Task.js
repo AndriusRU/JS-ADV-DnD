@@ -7,12 +7,12 @@ export default class Task {
     return `<li class="task" data-id="${id}">
               <div class="task-header">
                 <h4>${title}</h4>
-                <button class="task-del hidden"><span></span></button>
+                <button class="task-del hidden"><span>&#10060</span></button>
               </div>
             </li>`;
   }
 
-  bintToDOM(title, id) {
+  bindToDOM(title, id) {
     this.container.insertAdjacentHTML('beforeend', Task.markup(title, id));
   }
 
