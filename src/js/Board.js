@@ -26,7 +26,9 @@ export default class Board {
     this.doneColumn.bindToDOM();
     // Загрузка задач из хранилища
     this.tasks = this.stateService.getTasks();
-    this.loadInitialState(this.tasks);
+    if (this.tasks) {
+      this.loadInitialState(this.tasks);
+    }
     this.addEvents();
   }
 
@@ -70,6 +72,16 @@ export default class Board {
         }
       });
     });
+    this.container.addEventListener('mousedown', (event) => {
+      if (event.target.tagName === 'SPAN') {
+        return;
+      }
+      if (event.target.closest('li')) {
+        this.onMouseDown(event);
+      }
+    });
+    this.container.addEventListener('mouseup', (event) => this.onMouseUp(event));
+    this.container.addEventListener('mousemove', (event) => this.onMouseMove(event));
   }
 
   static get markup() {
@@ -112,7 +124,7 @@ export default class Board {
       column: parentElement.dataset.idColumn,
       id,
     };
-    newTask.bindToDOM(title, id);
+    newTask.bindToDOM(title, parentElement.dataset.idColumn, id);
     // console.log(`tasks - ${infoTask}`);
     this.tasks.push(infoTask);
     this.stateService.saveTasks(this.tasks);
@@ -142,7 +154,69 @@ export default class Board {
       const columnContainer = this.container.querySelector(`.column-container[data-id-column="${task.column}"]`);
       const taskContainer = columnContainer.querySelector('.task-items');
       const newTask = new Task(taskContainer);
-      newTask.bindToDOM(task.title, task.id);
+      newTask.bindToDOM(task.title, task.column, task.id);
     }
+  }
+
+  onMouseDown(event) {
+    event.preventDefault();
+    document.body.style.cursor = 'grabbing';
+    const curElement = event.target.closest('li');
+    this.cloneElement = curElement.cloneNode(true);
+    const {
+      width, height, left, top,
+    } = curElement.getBoundingClientRect();
+    this.cloneElement.classList.add('dragged');
+    this.cloneElement.style.width = `${width}px`;
+    this.cloneElement.style.height = `${height}px`;
+    document.body.appendChild(this.cloneElement);
+    this.coordX = left;
+    this.coordY = top;
+    // console.log(event);
+    // console.log(event.clientX);
+    // console.log(event.clientY);
+    // console.log({ width, height, left, top });
+    this.cloneElement.style.left = `${this.coordX}px`;
+    this.cloneElement.style.top = `${this.coordY}px`;
+    this.curElement = curElement;
+    this.curElement.classList.add('hidden');
+    this.diffX = event.pageX - this.coordX;
+  }
+
+  onMouseMove(event) {
+    event.preventDefault();
+    if (!this.cloneElement) {
+      return;
+    }
+    // console.log(event.pageX, event.pageY, this.coordX, this.coordY)
+    // console.log(event.pageX);
+    // console.log(this.coordX);
+    this.cloneElement.style.left = `${event.pageX - this.diffX}px`;
+    this.cloneElement.style.top = `${event.pageY}px`;
+  }
+
+  onMouseUp(event) {
+    event.preventDefault();
+    document.body.style.cursor = 'default';
+    if (!this.cloneElement || !this.curElement) {
+      return;
+    }
+    const closeElemLi = document.elementFromPoint(event.clientX, event.clientY).closest('li');
+    const columnContainer = event.target.closest('.column-container');
+    // Вне столбцов "бросили" элемент
+    if (!columnContainer) {
+      this.cloneElement.remove();
+      this.curElement.classList.remove('hidden');
+      return;
+    }
+    const tasks = columnContainer.querySelector('.task-items');
+    this.curElement.dataset.column = columnContainer.dataset.idColumn;
+    tasks.insertBefore(this.curElement, closeElemLi);
+    const curTask = this.tasks.find((item) => item.id === parseInt(this.curElement.dataset.id, 10));
+    curTask.column = this.curElement.dataset.column;
+    this.stateService.saveTasks(this.tasks);
+    this.curElement.classList.remove('hidden');
+    this.cloneElement.remove();
+    this.cloneElement = null;
   }
 }

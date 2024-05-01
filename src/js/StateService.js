@@ -8,7 +8,12 @@ export default class StateService {
     } else {
       result = [];
     }
-    return JSON.parse(result);
+
+    if (result.length !== 0) {
+      return JSON.parse(result);
+    }
+
+    return result;
   }
 
   saveTasks(data) {

@@ -3,8 +3,8 @@ export default class Task {
     this.container = container;
   }
 
-  static markup(title, id) {
-    return `<li class="task" data-id="${id}">
+  static markup(title, column, id) {
+    return `<li class="task" data-id="${id}" data-column="${column}">
               <div class="task-header">
                 <h4>${title}</h4>
                 <button class="task-del hidden"><span>&#10060</span></button>
@@ -12,20 +12,7 @@ export default class Task {
             </li>`;
   }
 
-  bindToDOM(title, id) {
-    this.container.insertAdjacentHTML('beforeend', Task.markup(title, id));
+  bindToDOM(title, column, id) {
+    this.container.insertAdjacentHTML('beforeend', Task.markup(title, column, id));
   }
-
-  // static onClickAddTask(event) {
-  //   const parentElement = event.currentTarget.closest('.tasks-container');
-  //   const addTaskElement = parentElement.querySelector('.add-task');
-  //   addTaskElement.classList.toggle('hidden');
-  // }
-
-  // init() {
-  //   const addCardButtomElements = Board.boardContainer.querySelectorAll('.task-add-card button');
-  //   addCardButtomElements.forEach((element) => {
-  //     element.addEventListener('click', (event) => this.onClickAddTask(event));
-  //   });
-  // }
 }
