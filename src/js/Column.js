@@ -21,7 +21,7 @@ export default class Column {
                       <input type="text" class="add-task-input" placeholder="Введите название новой карточки..."/>
                     </div>               
                     <button class="add-task-newcard btn btn-primary">Add Card</button>
-                    <button class="add-task-delete"><span></span></button>
+                    <button class="add-task-close"><span>Cancel</span></button>
                   </form>
               </div>
             </div>`;

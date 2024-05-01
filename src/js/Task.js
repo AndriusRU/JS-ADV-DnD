@@ -15,4 +15,17 @@ export default class Task {
   bintToDOM(title, id) {
     this.container.insertAdjacentHTML('beforeend', Task.markup(title, id));
   }
+
+  // static onClickAddTask(event) {
+  //   const parentElement = event.currentTarget.closest('.tasks-container');
+  //   const addTaskElement = parentElement.querySelector('.add-task');
+  //   addTaskElement.classList.toggle('hidden');
+  // }
+
+  // init() {
+  //   const addCardButtomElements = Board.boardContainer.querySelectorAll('.task-add-card button');
+  //   addCardButtomElements.forEach((element) => {
+  //     element.addEventListener('click', (event) => this.onClickAddTask(event));
+  //   });
+  // }
 }

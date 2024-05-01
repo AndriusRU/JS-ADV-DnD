@@ -1,0 +1,10 @@
+/* eslint-disable class-methods-use-this */
+export default class StateService {
+  getTasks() {
+    return JSON.parse(localStorage.getItem('tasks')) || [];
+  }
+
+  saveTasks(data) {
+    localStorage.setItem('tasks', JSON.stringify(data));
+  }
+}

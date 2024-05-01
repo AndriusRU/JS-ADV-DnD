@@ -8,7 +8,7 @@
   "scripts": {
     "start": "webpack serve --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "lint": "eslint .",
+    "lint": "eslint ./src",
     "test": "jest --testPathPattern=./src/"
   },
   "devDependencies": {
